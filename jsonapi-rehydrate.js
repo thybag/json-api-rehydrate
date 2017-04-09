@@ -2,9 +2,10 @@
  * JSON:API Rehydrate
  *
  * @author Carl
- * @version 0.0.1
+ * @version 0.1.1
  *
- * use as data = jsonApiRehydrate( json_API_response );
+ * var hydratedData = jsonApiReHydrate.rehydrate( json_api_payload );
+ * console.log(hydratedData.relation.attribute);
  */
 (function(){
 	"use strict";
