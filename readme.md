@@ -1,9 +1,17 @@
 # JSON:API rehydrate
 
-A quick little js method for converting data from a json:api endpoint back in to a hierarchical data structure.
+JSON:API rehydrate is a small utility for "rehydrating" a json:api payload back in to a hierarchical data structure for use on the frontend.
 
-Please note, this is just a little project for playing around so the code is still pretty dirty & it hasn't been tested against a very wide selection of valid response data.
+## Basic usage
+
+ 1. Download a copy of the `json-api-rehydrate.js`
+ 2. Include the library in to your webpage.
+ 3. Call it on your json:api payload `var data = jsonApiReHydrate.rehydrate( jsonApiPayload );`
+
+Alternately you can;
+
+* Install using NPM `run npm install json-api-rehydrate`
 
 ```
-	let data = jsonApiRehydrate(myJsonAPiResponce);
+	var data = jsonApiReHydrate.rehydrate(data);
 ```
