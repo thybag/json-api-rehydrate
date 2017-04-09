@@ -48,6 +48,9 @@
 		 * Load a given relation. Can be either singular or a collection
 		 */ 
 		this.loadRelation = function(relation){
+			// Is relation empty?
+			if(relation === null) return null;
+
 			// If this is a collection relation, call self with each item & return em all as an array
 			if(Array.isArray(relation)){
 				var collection = [];
@@ -70,13 +73,19 @@
 		};
 
 		/**
-		 * Make a quick lookup map for includes so we can access them without looping
+		 * Create a quick lookup map for all include-able relations so we can access them quickly without 
+		 * additional looping
 		 */ 
-		this.generateIncludeMap = function(included){
-			var i, item;
-			for(i in included){
-				if(included.hasOwnProperty(i)){
-					item = included[i];
+		this.generateIncludeMap = function(data){
+			var i, item, includes = [].concat(data.data);
+
+			if(data.included){
+				includes = includes.concat(data.included);
+			}
+
+			for(i in includes){
+				if(includes.hasOwnProperty(i)){
+					item = includes[i];
 					this.relationMap[item.type+':'+item.id] = item; 
 				}
 			}
@@ -87,7 +96,7 @@
 		 */ 
 		this.parse = function(payload){
 			// Create quick lookup for includes
-			this.generateIncludeMap(payload.included);
+			this.generateIncludeMap(payload);
 
 			// Hydrate the main data set (if collection)
 			if(Array.isArray(payload.data)){
