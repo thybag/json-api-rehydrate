@@ -23,3 +23,71 @@ To rehydrate a response with the utility simply call its `rehydrate` method with
 var data = jsonApiReHydrate.rehydrate(response);
 console.log(data);
 ```
+
+## Examples
+
+The json:api responce below
+
+```
+{
+	"data": {
+		"type": "people",
+		"id": "1",
+		"attributes": {
+			"name": "Dave"
+		},
+		"relationships": {
+			"published": {
+				"data": [
+					{
+						"type": "books",
+						"id": "1"
+					},
+					{
+						"type": "books",
+						"id": "2"
+					}
+				]
+			}
+		}
+	},
+	"included": [
+		{
+			"type": "books",
+			"id": "1",
+			"attributes": {
+				"title": "Foo",
+				"year": 1991
+			}
+		},
+		{
+			"type": "books",
+			"id": "2",
+			"attributes": {
+				"title": "Bar",
+				"year": 2015
+			}
+		}
+	]
+}
+```
+Will produce the following output 
+
+```
+{
+	"name": "Dave",
+	"id": "1",
+	"published": [
+		{
+			"title": "Foo",
+			"year": 1991,
+			"id": "1"
+		},
+		{
+			"title": "Bar",
+			"year": 2015,
+			"id": "2"
+		}
+	]
+}
+```

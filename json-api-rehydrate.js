@@ -121,7 +121,7 @@
 	var jsonApiReHydratePublic = {};
 	jsonApiReHydratePublic.rehydrate = function(payload){
 		var jrh = new jsonReHydrater();
-		return jrh.parse(payload);	
+		return jrh.parse(JSON.parse(JSON.stringify(payload)));	
 	};
 
 	// Add ourselves to the outside world / global name-space
