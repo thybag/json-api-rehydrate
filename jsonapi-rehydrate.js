@@ -7,6 +7,8 @@
  */
 (function(){
 	let relationMap = {}; 
+	let hydratedItemMap = {}
+
 
 	// hydrate base item (figure out if its a collection or just the one)
 	function hydrate(data){
@@ -24,22 +26,44 @@
 
 	// Hydrate an item, combine all its data + include the relations as part of rthe data set
 	function hydrateItem(item){
-		var newItem = item.attributes;
+		var newItem;
+		if(typeof hydratedItemMap[item.type] === 'object' && hydratedItemMap[item.type][item.id] === 'object'){
+			newItem = hydratedItemMap[item.type][item.id];
+		}else{
+			newItem = {};
+			newItem = Object.assign(newItem,item.attributes);
 			newItem.id = item.id;
+
+			if(typeof hydratedItemMap[item.type] !== 'object'){
+				hydratedItemMap[item.type] = {};
+			}
+			hydratedItemMap[item.type][item.id] = newItem;
+		}
 
 		for(let key in item.relationships){
 			let relation = item.relationships[key];
 
 			if(Array.isArray(relation.data)){
-				newItem[key] = [];	
+				newItem[key] = [];
 				for(let rel of relation.data){
-					newItem[key].push(hydrate(relationMap[rel.type][rel.id]));
+					if(hydratedItemMap[rel.type][rel.id]){
+						item = hydratedItemMap[rel.type][rel.id];
+					}else{
+						item = hydrateItem(relationMap[rel.type][rel.id]);
+					}
+					newItem[key].push(item);
 				}
 			}else{
-				newItem[key] = hydrate(relationMap[relation.data.type][relation.data.id]);
+				if(typeof hydratedItemMap[relation.data.type] !== 'object'){
+					hydratedItemMap[relation.data.type] = {};
+				}	
+				if(hydratedItemMap[relation.data.type][relation.data.id]){
+					newItem[key] = hydratedItemMap[relation.data.type][relation.data.id];
+				}else{
+					newItem[key] = hydrateItem(relationMap[relation.data.type][relation.data.id]);
+				}
 			}
 		}
-
 		return newItem;
 	}
 
