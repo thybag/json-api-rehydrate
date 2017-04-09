@@ -9,77 +9,63 @@
 	let relationMap = {}; 
 	let hydratedItemMap = {}
 
-
-	// hydrate base item (figure out if its a collection or just the one)
-	function hydrate(data){
-		if(Array.isArray(data)){
-			let collection = [];
-			for(let item of data){
-				collection.push(hydrateItem(item));
-			}
-			return collection;
-		}else{
-			if(typeof data == 'undefined') return null;
-			return hydrateItem(data);
-		}
-	}
-
 	// Hydrate an item, combine all its data + include the relations as part of rthe data set
-	function hydrateItem(item){
+	function hydrate(item){
 		var newItem;
-		if(typeof hydratedItemMap[item.type] === 'object' && hydratedItemMap[item.type][item.id] === 'object'){
-			newItem = hydratedItemMap[item.type][item.id];
+		var key = item.type+':'+item.id;
+		if(typeof hydratedItemMap[key] === 'object'){
+			newItem = hydratedItemMap[key];
 		}else{
 			newItem = {};
 			newItem = Object.assign(newItem,item.attributes);
 			newItem.id = item.id;
 
-			if(typeof hydratedItemMap[item.type] !== 'object'){
-				hydratedItemMap[item.type] = {};
-			}
-			hydratedItemMap[item.type][item.id] = newItem;
+			hydratedItemMap[key] = newItem;
 		}
 
-		for(let key in item.relationships){
-			let relation = item.relationships[key];
-
-			if(Array.isArray(relation.data)){
-				newItem[key] = [];
-				for(let rel of relation.data){
-					if(hydratedItemMap[rel.type][rel.id]){
-						item = hydratedItemMap[rel.type][rel.id];
-					}else{
-						item = hydrateItem(relationMap[rel.type][rel.id]);
-					}
-					newItem[key].push(item);
-				}
-			}else{
-				if(typeof hydratedItemMap[relation.data.type] !== 'object'){
-					hydratedItemMap[relation.data.type] = {};
-				}	
-				if(hydratedItemMap[relation.data.type][relation.data.id]){
-					newItem[key] = hydratedItemMap[relation.data.type][relation.data.id];
-				}else{
-					newItem[key] = hydrateItem(relationMap[relation.data.type][relation.data.id]);
-				}
-			}
+		for(let relName in item.relationships){
+			let relation = item.relationships[relName];
+			newItem[relName] = loadRelation(relation.data);
 		}
 		return newItem;
+	}
+
+	function loadRelation(relation){
+		if(Array.isArray(relation)){
+			let collection = [];
+			for(let rel of relation){
+				collection.push(loadRelation(rel));
+			}
+			return collection;
+		}
+
+		if(hydratedItemMap[relation.type+':'+relation.id]){
+			return hydratedItemMap[relation.type+':'+relation.id];
+		}else{
+			return hydrate(relationMap[relation.type+':'+relation.id]);
+		}
 	}
 
 	// Make map of includes for quick lookup
 	function generateIncludeMap(included){
 		for(let item of included){
-			if(typeof relationMap[item.type] === 'undefined'){
-				relationMap[item.type] = {}; 
-			}
-			relationMap[item.type][item.id] = item; 
+			relationMap[item.type+':'+item.id] = item; 
 		}
 	}
 
 	// public
 	window.jsonApiRehydrate = function(data){
+
+		// Make includes map
 		generateIncludeMap(data.included);
+
+		if(Array.isArray(data.data)){
+			let collection = [];
+			for(let item of data.data){
+				collection.push(hydrate(item));
+			}
+			return collection;
+		}
 		return hydrate(data.data);
 	};
 })();
