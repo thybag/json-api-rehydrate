@@ -19,7 +19,7 @@ By default the `jsonApiReHydrate` will be added to the window object making it g
 To hydrate a response with the utility simply call its `rehydrate` method with the json:api response you would like to hydrate.
 
 ```
-	// response = myApi.fetch("some-json-api-endpoint");
-	var data = jsonApiReHydrate.rehydrate(response);
-	console.log(data);
+// response = myApi.fetch("some-json-api-endpoint");
+var data = jsonApiReHydrate.rehydrate(response);
+console.log(data);
 ```
