@@ -1,6 +1,6 @@
 # JSON:API rehydrate
 
-JSON:API rehydrate is a small utility for "rehydrating" a [json:api](http://jsonapi.org/) response back in to a hierarchical data structure for easier use on the frontend.
+JSON:API rehydrate is a small utility for "rehydrating" (or deserializing) a [json:api](http://jsonapi.org/) response back in to a hierarchical data structure for easier use on the frontend.
 
 ## Installation
 
@@ -14,9 +14,9 @@ Alternately you can;
 
 ## Basic usage
 
-By default the `jsonApiReHydrate` will be added to the window object making it globally available. (unless loaded via AMD or otherwise).
+By default the `jsonApiReHydrate` will be added to the window object making it globally available. (Unless loaded via AMD or otherwise).
 
-To hydrate a response with the utility simply call its `rehydrate` method with the json:api response you would like to hydrate.
+To rehydrate a response with the utility simply call its `rehydrate` method with the json:api response you would like to hydrate.
 
 ```
 // response = myApi.fetch("some-json-api-endpoint");
