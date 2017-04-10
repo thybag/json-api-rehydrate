@@ -7,5 +7,5 @@
     "ignore": ["package.json"],
     "description": "A utility for turning a JSON:API response back in to a hierarchical data structure.",
     "version": "0.1.4",
-    "main": "json-api-rehydrate.js",
+    "main": "json-api-rehydrate.js"
 }
