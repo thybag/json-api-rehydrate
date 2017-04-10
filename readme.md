@@ -1,6 +1,6 @@
 # JSON:API rehydrate
 
-JSON:API rehydrate is a small utility for "rehydrating" (or deserializing) a [json:api](http://jsonapi.org/) response back in to a hierarchical data structure for easier use on the frontend.
+JSON:API rehydrate is a small, fast, dependencyless utility for "rehydrating" (or deserializing) [json:api](http://jsonapi.org/) responses back in to hierarchical data structures for easier use on the front-end.
 
 ## Installation
 
@@ -26,7 +26,7 @@ console.log(data);
 
 ## Examples
 
-The json:api responce below
+The json:api response below
 
 ```
 {
