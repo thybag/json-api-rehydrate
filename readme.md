@@ -10,7 +10,8 @@ JSON:API rehydrate is a small, fast, dependencyless utility for "rehydrating" (o
 
 Alternately you can;
 
-* Install using NPM `run npm install json-api-rehydrate`
+* Install using NPM run `npm install json-api-rehydrate`
+* Install using Bower run `bower install json-api-rehydrate`
 
 ## Basic usage
 
