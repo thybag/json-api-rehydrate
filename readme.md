@@ -25,7 +25,7 @@ var data = jsonApiReHydrate.rehydrate(response);
 console.log(data);
 ```
 
-## Examples
+## Example
 
 The json:api response below
 
@@ -92,3 +92,10 @@ Will produce the following output
 	]
 }
 ```
+## Additional features
+
+A number of additional functions are available on each of the objects & arrays return by the json-api-rehydrator, in order to provide
+easy access to the data in its original form.
+
+* Rehydrated objects provide `getOriginal()`, `getId()`,  `getType()`, `getMeta()`, `getLinks()`, `getRelationships()` and `getAttributes()`.
+* Rehydrated arrays provide `getOriginal()`, `getMeta()` and `getLinks()`

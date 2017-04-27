@@ -1,6 +1,6 @@
 {
   "name": "json-api-rehydrate",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "A utility for turning a JSON:API response back in to a hierarchical data structure",
   "main": "json-api-rehydrate.js",
   "scripts": {

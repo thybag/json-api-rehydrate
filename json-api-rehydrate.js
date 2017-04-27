@@ -133,28 +133,28 @@
 		// Add helper methods for accessing useful data
 		this.getOriginal = function(){
 			return original;
-		}
+		};
 	}
 
 	// Set prototype accessors
 	HydratedObject.prototype.getId = function(){
 		return this.getOriginal().id;
-	}
+	};
 	HydratedObject.prototype.getType = function(){
 		return this.getOriginal().type;
-	}
+	};
 	HydratedObject.prototype.getMeta = function(){
 		return (this.getOriginal().meta) ? this.getOriginal().meta : null;
-	}
+	};
 	HydratedObject.prototype.getLinks = function(){
 		return (this.getOriginal().links) ? this.getOriginal().links : null;
-	}
+	};
 	HydratedObject.prototype.getRelationships = function(){
 		return (this.getOriginal().relationships) ? this.getOriginal().relationships : null;
-	}
+	};
 	HydratedObject.prototype.getAttributes = function(){
 		return (this.getOriginal().attributes) ? this.getOriginal().attributes : null;
-	}
+	};
 
 	/**
 	 * hydratedCollection
@@ -164,18 +164,18 @@
 		// Add helper methods for accessing useful data
 		this.getOriginal = function(){
 			return original;
-		}
+		};
 	}
 
 	// Set prototype accessors
-	HydratedCollection.prototype = new Array;
+	HydratedCollection.prototype = new Array();
 	HydratedCollection.prototype.getMeta = function(){
 		return (this.getOriginal().meta) ? this.getOriginal().meta : null;
-	}
+	};
 	HydratedCollection.prototype.getLinks = function(){
 		return (this.getOriginal().links) ? this.getOriginal().links : null;
-	}
-	
+	};
+
 	/**
 	 * jsonReHydratePublic
 	 * Public api for the json:api rehydrater
