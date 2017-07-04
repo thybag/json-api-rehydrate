@@ -2,7 +2,7 @@
  * JSON:API Rehydrate
  *
  * @author Carl
- * @version 0.2.0
+ * @version 0.2.1
  *
  * var hydratedData = jsonApiReHydrate.rehydrate( json_api_payload );
  * console.log(hydratedData.relation.attribute);
@@ -110,6 +110,7 @@
 				}
 				return collection;
 			}
+
 			// or of singular
 			return this.hydrate(payload.data);	
 		};
@@ -162,9 +163,12 @@
 	 */	
 	function HydratedCollection(original){
 		// Add helper methods for accessing useful data
-		this.getOriginal = function(){
+		var arr = [];
+		arr.__proto__ = HydratedCollection.prototype;
+		arr.getOriginal = function(){
 			return original;
 		};
+		return arr;
 	}
 
 	// Set prototype accessors
