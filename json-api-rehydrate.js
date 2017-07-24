@@ -2,7 +2,7 @@
  * JSON:API Rehydrate
  *
  * @author Carl
- * @version 0.2.1
+ * @version 0.2.2
  *
  * var hydratedData = jsonApiReHydrate.rehydrate( json_api_payload );
  * console.log(hydratedData.relation.attribute);
@@ -96,6 +96,12 @@
 		 * Parse json:api payload & return rehydrated object
 		 */ 
 		this.parse = function(payload){
+
+			// Ensure some data is here
+			if (payload === null || typeof payload === "undefined" || payload.data === null || typeof payload.data === "undefined") {
+				return null;
+			}
+
 			// Create quick lookup for includes
 			this.generateIncludeMap(payload);
 
