@@ -146,10 +146,10 @@
 			for (var attribute in this) {
 				if (this.hasOwnProperty(attribute) && !isNaN(parseInt(attribute))) {
 					arr[parseInt(attribute)] = this[attribute];
-                }
-            }
-            return arr;
-        }
+				}
+			}
+			return arr;
+		}
 	}
 
 	// Set prototype accessors
