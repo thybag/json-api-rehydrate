@@ -141,6 +141,15 @@
 		this.getOriginal = function(){
 			return original;
 		};
+		this.getArray = function() {
+			var arr = [];
+			for (var attribute in this) {
+				if (this.hasOwnProperty(attribute) && !isNaN(parseInt(attribute))) {
+					arr[parseInt(attribute)] = this[attribute];
+                }
+            }
+            return arr;
+        }
 	}
 
 	// Set prototype accessors
